@@ -17,7 +17,7 @@ public:
      *  Both the left and right subtrees must also be binary search trees.
      */
 
-    /**
+    /***************************************************************
      *  思路：中序遍历的BST是有序的
      *  1）先判断左子树内部是否有序
      *  2）比较前一个节点和当前结点的值
@@ -25,7 +25,7 @@ public:
      *  注意：这里最好就保存指针，不要保存节点的值
      *  1）如果节点类型是int，可以赋初值为LLONG_MIN
      *  2）如果节点类型是long long，不好找比其范围更大的数了
-     */
+     ***************************************************************/
     bool isValidBST(TreeNode* root) {
         TreeNode * prev = NULL;
         return _isValidBST(root, prev);
@@ -37,4 +37,32 @@ public:
         prev = node;
         return _isValidBST(node->right, prev);
     }
+
+    /***************************************************************
+     *  不知道为什么这样就不能通过
+     ***************************************************************/
+    // bool isValidBST(TreeNode* root) {
+    //      static TreeNode * prev = NULL;
+    //      if (root == NULL) return true;
+    //      if (!isValidBST(root->left)) return false;
+    //      if (prev && root->val <= prev->val) {
+    //          return false;
+    //      }
+    //      prev = root;
+    //      return isValidBST(root->right);
+    // }
+    
+    /***************************************************************
+     *  这里跟上面有同样的问题，还依赖于INT的最小值
+     ***************************************************************/
+    // bool isValidBST(TreeNode *root) {
+    //     static int m = INT_MIN;
+    //     if(root == NULL) return true;
+    //     if(!isValidBST(root->left)) return false;
+    //     if(!(root->val > m)) {
+    //         return false;
+    //     }
+    //     m = root->val;
+    //     return isValidBST(root->right);
+    // }
 };
